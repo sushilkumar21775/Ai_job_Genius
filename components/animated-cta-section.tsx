@@ -5,6 +5,7 @@ import { useRef } from "react"
 import { Button } from "./ui/button"
 import { ArrowRight, MessageCircle } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@clerk/nextjs"
 
 // Dynamic import with SSR disabled to prevent hydration mismatch
 const BackgroundPaths = dynamic(
@@ -14,6 +15,11 @@ const BackgroundPaths = dynamic(
 
 export function AnimatedCTASection() {
   const contentRef = useRef<HTMLDivElement>(null)
+  const { isSignedIn, isLoaded } = useAuth()
+
+  // Determine where to redirect based on auth state
+  const ctaHref = isLoaded && isSignedIn ? "/dashboard" : "/auth/signup"
+  const ctaText = isLoaded && isSignedIn ? "Go to Dashboard" : "Start Free Career Assessment"
 
   return (
     <section className="relative py-20 px-4 overflow-hidden">
@@ -68,8 +74,8 @@ export function AnimatedCTASection() {
             style={{ animationDelay: "0.9s" }}
           >
             <Button size="lg" className="bg-white text-black hover:bg-white/90 group" asChild>
-              <Link href="/auth/signup" prefetch={false}>
-                Start Free Career Assessment
+              <Link href={ctaHref} prefetch={false}>
+                {ctaText}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>

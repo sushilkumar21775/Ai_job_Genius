@@ -4,6 +4,7 @@ import dynamic from "next/dynamic"
 import { Button } from "./ui/button"
 import { ArrowRight, Play } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@clerk/nextjs"
 
 // Dynamic import with SSR disabled to prevent hydration mismatch
 const ParticleTextEffect = dynamic(
@@ -22,6 +23,12 @@ const ProgressiveBlur = dynamic(
 )
 
 export function HeroSection() {
+  const { isSignedIn, isLoaded } = useAuth()
+
+  // Determine where to redirect based on auth state
+  const ctaHref = isLoaded && isSignedIn ? "/dashboard" : "/auth/signup"
+  const ctaText = isLoaded && isSignedIn ? "Go to Dashboard" : "Start Free Assessment"
+
   return (
     <section className="py-20 px-4 relative overflow-hidden min-h-screen flex flex-col justify-between">
       <div className="flex-1 flex items-start justify-center pt-20">
@@ -40,8 +47,8 @@ export function HeroSection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button size="lg" className="bg-white hover:bg-gray-200 text-black group" asChild>
-              <Link href="/auth/signup" prefetch={false}>
-                Start Free Assessment
+              <Link href={ctaHref} prefetch={false}>
+                {ctaText}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
