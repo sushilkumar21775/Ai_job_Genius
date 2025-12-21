@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { LeLoLogo } from "./lelo-logo"
+import { CareerPulseLogo } from "./careerpulse-logo"
 import { Button } from "./ui/button"
+import Link from "next/link"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -38,16 +39,15 @@ export function Header() {
       <div
         className={`
           flex items-center justify-center gap-6 px-6 py-3 rounded-2xl border transition-all duration-300
-          ${
-            isScrolled
-              ? "bg-background/90 backdrop-blur-xl border-border/40 shadow-2xl"
-              : "bg-background/95 backdrop-blur-lg border-border/30 shadow-lg"
+          ${isScrolled
+            ? "bg-background/90 backdrop-blur-xl border-border/40 shadow-2xl"
+            : "bg-background/95 backdrop-blur-lg border-border/30 shadow-lg"
           }
         `}
       >
-        <div className="transform transition-transform duration-200 hover:scale-105">
-          <LeLoLogo />
-        </div>
+        <Link href="/" className="transform transition-transform duration-200 hover:scale-105">
+          <CareerPulseLogo />
+        </Link>
 
         <nav className="hidden md:flex items-center gap-6">
           <a
@@ -65,16 +65,17 @@ export function Header() {
             <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-4"></span>
           </a>
           <a
-            href="#about"
+            href="#faq"
             className="relative text-foreground/80 hover:text-foreground transition-all duration-300 group px-3 py-1 rounded-lg hover:bg-foreground/5 transform hover:scale-110 hover:rotate-1 hover:skew-x-1"
           >
-            About
+            FAQ
+            <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-4"></span>
           </a>
           <a
             href="#about"
             className="relative text-foreground/80 hover:text-foreground transition-all duration-300 group px-3 py-1 rounded-lg hover:bg-foreground/5 transform hover:scale-110 hover:-rotate-1 hover:-skew-x-1"
           >
-            Testimonials
+            Success Stories
           </a>
         </nav>
 
@@ -83,14 +84,20 @@ export function Header() {
             variant="ghost"
             size="sm"
             className="text-foreground/80 hover:text-foreground hover:bg-foreground/10 transition-all duration-200 rounded-xl"
+            asChild
           >
-            Sign In
+            <Link href="/auth/login" prefetch={false}>
+              Sign In
+            </Link>
           </Button>
           <Button
             size="sm"
             className="bg-primary hover:bg-primary/90 text-primary-foreground transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-xl"
+            asChild
           >
-            Get Started
+            <Link href="/auth/signup" prefetch={false}>
+              Get Started Free
+            </Link>
           </Button>
         </div>
       </div>

@@ -6,44 +6,44 @@ import { ChevronDown } from "lucide-react"
 
 const faqs = [
   {
-    question: "What is LeLo and how does it work?",
+    question: "What is CareerPulse AI and how does it work?",
     answer:
-      "LeLo is a comprehensive SaaS platform designed to streamline your business operations. It combines project management, team collaboration, analytics, and automation tools in one unified dashboard. Simply sign up, invite your team, and start organizing your workflows with our intuitive interface.",
+      "CareerPulse AI is an AI-powered career coaching platform designed to help students, freshers, and experienced professionals land their dream jobs. Our AI analyzes your profile, skills, and goals to provide personalized resume building, mock interviews, ATS optimization, and career path recommendations.",
   },
   {
-    question: "Can I try LeLo before committing to a paid plan?",
+    question: "How does the AI Resume Builder create professional resumes?",
     answer:
-      "We offer a 14-day free trial for all our plans. No credit card required. You'll have full access to all features during the trial period, and you can upgrade or cancel anytime.",
+      "Our AI Resume Builder uses advanced natural language processing to analyze your experience and skills, then generates ATS-optimized content tailored to your target role. It suggests powerful action verbs, quantifies achievements, and formats everything using industry-standard templates that pass through applicant tracking systems.",
   },
   {
-    question: "How secure is my data with LeLo?",
+    question: "What happens in an AI mock interview session?",
     answer:
-      "Security is our top priority. We use bank-level encryption, comply with SOC 2 Type II standards, and offer features like two-factor authentication, SSO integration, and regular security audits. Your data is stored in secure, redundant data centers with 99.9% uptime guarantee.",
+      "During a mock interview, our AI presents you with role-specific questions via video. It analyzes your responses for content relevance, communication clarity, confidence levels, and body language. After each session, you receive detailed feedback with improvement suggestions and sample answers for weak areas.",
   },
   {
-    question: "Can I integrate LeLo with my existing tools?",
+    question: "What is ATS and why does my resume need to be ATS-optimized?",
     answer:
-      "Yes! LeLo integrates with over 100+ popular tools including Slack, Google Workspace, Microsoft 365, Salesforce, Zapier, and many more. Our API also allows for custom integrations to fit your specific workflow needs.",
+      "ATS (Applicant Tracking System) is software used by 90%+ of companies to filter resumes before human review. An unoptimized resume may never reach a recruiter. Our ATS Score Analyzer checks keyword matching, formatting compatibility, and content structure to ensure your resume passes these systems.",
   },
   {
-    question: "What kind of support do you provide?",
+    question: "Can CareerPulse AI help me switch careers?",
     answer:
-      "We provide comprehensive support including email support for all plans, priority support for Professional plans, and 24/7 dedicated support for Enterprise customers. We also offer extensive documentation, video tutorials, and webinar training sessions.",
+      "Absolutely! Our Career Path Advisor is specifically designed for career transitions. It identifies transferable skills, recommends upskilling paths, suggests bridge roles, and helps you reframe your experience for new industries. Many successful career switchers have used our platform.",
   },
   {
-    question: "Can I change my plan anytime?",
+    question: "Is my data secure on this platform?",
     answer:
-      "Yes, you can upgrade or downgrade your plan at any time. When you upgrade, you'll be charged the prorated difference immediately. When you downgrade, the change will take effect at your next billing cycle, and you'll continue to have access to your current plan's features until then.",
+      "Security is our top priority. We use bank-level encryption (AES-256) for all data, comply with GDPR and SOC 2 standards, and never share your personal information with third parties. You can export or delete your data at any time from your account settings.",
   },
   {
-    question: "Do you offer refunds?",
+    question: "Can I get a refund if I'm not satisfied?",
     answer:
-      "We offer a 30-day money-back guarantee for all paid plans. If you're not satisfied with LeLo within the first 30 days of your subscription, contact our support team for a full refund.",
+      "Yes! We offer a 14-day money-back guarantee for all paid plans. If CareerPulse AI doesn't meet your expectations within the first 14 days, contact our support team for a full refund. No questions asked.",
   },
   {
-    question: "Is there a limit on the number of projects or users?",
+    question: "Do you offer discounts for students?",
     answer:
-      "Limits depend on your plan. Starter plans support up to 5 users and 10 projects, Professional plans support up to 25 users and unlimited projects, while Enterprise plans offer unlimited users and projects. Check our pricing page for detailed information.",
+      "Yes! Students with a valid .edu email address get 50% off on our Pro plan. We also partner with universities to provide free access through career services departments. Contact us if you'd like to bring CareerPulse AI to your institution.",
   },
 ]
 
@@ -75,7 +75,7 @@ export function FAQSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Everything you need to know about LeLo. Can't find what you're looking for? Contact our support team.
+            Everything you need to know about CareerPulse AI. Can't find what you're looking for? Contact our support team.
           </motion.p>
         </div>
 
@@ -95,9 +95,8 @@ export function FAQSection() {
               >
                 <span className="text-lg font-medium text-white pr-4">{faq.question}</span>
                 <ChevronDown
-                  className={`h-5 w-5 text-gray-400 transition-transform flex-shrink-0 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
+                  className={`h-5 w-5 text-gray-400 transition-transform flex-shrink-0 ${openIndex === index ? "rotate-180" : ""
+                    }`}
                 />
               </button>
 
@@ -125,8 +124,8 @@ export function FAQSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          
-          
+
+
         </motion.div>
       </div>
     </section>

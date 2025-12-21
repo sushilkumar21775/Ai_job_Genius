@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useMemo, useRef } from "react"
+import { useMemo, useRef, useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { useDimensions } from "@/components/hooks/use-debounced-dimensions"
 
@@ -11,28 +11,39 @@ interface AnimatedGradientProps {
   blur?: "light" | "medium" | "heavy"
 }
 
-const randomInt = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min
+// Seeded random function for consistent SSR/client values
+function seededRandom(seed: number) {
+  const x = Math.sin(seed) * 10000
+  return x - Math.floor(x)
+}
+
+function seededRandomInt(seed: number, min: number, max: number) {
+  return Math.floor(seededRandom(seed) * (max - min + 1)) + min
 }
 
 const AnimatedGradient: React.FC<AnimatedGradientProps> = ({ colors, speed = 5, blur = "light" }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const dimensions = useDimensions(containerRef)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const randomValues = useMemo(() => {
-    return colors.map(() => ({
-      top: Math.random() * 50,
-      left: Math.random() * 50,
-      tx1: Math.random() - 0.5,
-      ty1: Math.random() - 0.5,
-      tx2: Math.random() - 0.5,
-      ty2: Math.random() - 0.5,
-      tx3: Math.random() - 0.5,
-      ty3: Math.random() - 0.5,
-      tx4: Math.random() - 0.5,
-      ty4: Math.random() - 0.5,
-      widthMultiplier: randomInt(0.5, 1.5),
-      heightMultiplier: randomInt(0.5, 1.5),
+    return colors.map((_, index) => ({
+      top: seededRandom(index * 10 + 1) * 50,
+      left: seededRandom(index * 10 + 2) * 50,
+      tx1: seededRandom(index * 10 + 3) - 0.5,
+      ty1: seededRandom(index * 10 + 4) - 0.5,
+      tx2: seededRandom(index * 10 + 5) - 0.5,
+      ty2: seededRandom(index * 10 + 6) - 0.5,
+      tx3: seededRandom(index * 10 + 7) - 0.5,
+      ty3: seededRandom(index * 10 + 8) - 0.5,
+      tx4: seededRandom(index * 10 + 9) - 0.5,
+      ty4: seededRandom(index * 10 + 10) - 0.5,
+      widthMultiplier: seededRandomInt(index * 10 + 11, 5, 15) / 10,
+      heightMultiplier: seededRandomInt(index * 10 + 12, 5, 15) / 10,
     }))
   }, [colors.length])
 
@@ -44,6 +55,10 @@ const AnimatedGradient: React.FC<AnimatedGradientProps> = ({ colors, speed = 5, 
   }, [dimensions.width, dimensions.height])
 
   const blurClass = blur === "light" ? "blur-2xl" : blur === "medium" ? "blur-3xl" : "blur-[100px]"
+
+  if (!isMounted) {
+    return <div ref={containerRef} className="absolute inset-0 overflow-hidden" />
+  }
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">

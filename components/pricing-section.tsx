@@ -2,30 +2,39 @@
 
 import { motion } from "framer-motion"
 import { Button } from "./ui/button"
-import { Check, ArrowRight } from "lucide-react"
+import { Check, ArrowRight, Sparkles } from "lucide-react"
+import Link from "next/link"
 
 const pricingPlans = [
   {
-    name: "Starter",
-    price: "$29",
-    period: "/month",
-    description: "Perfect for small teams getting started",
-    features: ["Up to 5 team members", "10GB storage", "Basic analytics", "Email support", "Standard integrations"],
+    name: "Free",
+    price: "$0",
+    period: "/forever",
+    description: "Perfect for students exploring career options",
+    features: [
+      "3 Resume builds/month",
+      "5 AI mock interviews",
+      "Basic ATS scoring",
+      "Email support",
+      "Community access",
+      "Career assessment quiz",
+    ],
     popular: false,
   },
   {
-    name: "Professional",
-    price: "$79",
+    name: "Pro",
+    price: "$19",
     period: "/month",
-    description: "Best for growing businesses",
+    description: "Best for active job seekers",
     features: [
-      "Up to 25 team members",
-      "100GB storage",
-      "Advanced analytics",
+      "Unlimited resume builds",
+      "Unlimited mock interviews",
+      "Advanced ATS optimization",
       "Priority support",
-      "All integrations",
-      "Custom workflows",
-      "API access",
+      "LinkedIn profile optimization",
+      "Career path roadmap",
+      "Skills assessment & courses",
+      "Interview question bank",
     ],
     popular: true,
   },
@@ -33,16 +42,16 @@ const pricingPlans = [
     name: "Enterprise",
     price: "Custom",
     period: "",
-    description: "For large organizations",
+    description: "For colleges & organizations",
     features: [
-      "Unlimited team members",
-      "Unlimited storage",
-      "Enterprise analytics",
-      "24/7 dedicated support",
-      "Custom integrations",
-      "Advanced security",
+      "Everything in Pro",
+      "Bulk licenses",
+      "Admin dashboard & analytics",
+      "Custom branding",
+      "Dedicated success manager",
+      "API access",
       "SLA guarantee",
-      "On-premise deployment",
+      "On-premise deployment option",
     ],
     popular: false,
   },
@@ -70,7 +79,7 @@ export function PricingSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Choose the perfect plan for your business needs. No hidden fees, no surprises.
+            Start free, upgrade when you're ready. No hidden fees.
           </motion.p>
         </div>
 
@@ -78,9 +87,8 @@ export function PricingSection() {
           {pricingPlans.map((plan, index) => (
             <motion.div
               key={plan.name}
-              className={`relative bg-card border rounded-lg p-8 ${
-                plan.popular ? "border-white/30 bg-white/5" : "border-border/20 bg-background/50"
-              }`}
+              className={`relative bg-card border rounded-lg p-8 ${plan.popular ? "border-white/30 bg-white/5" : "border-border/20 bg-background/50"
+                }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -89,7 +97,10 @@ export function PricingSection() {
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-white text-black px-4 py-1 rounded-full text-sm font-medium">Most Popular</span>
+                  <span className="bg-white text-black px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    Most Popular
+                  </span>
                 </div>
               )}
 
@@ -112,15 +123,17 @@ export function PricingSection() {
               </ul>
 
               <Button
-                className={`w-full ${
-                  plan.popular
-                    ? "bg-white text-black hover:bg-white/90"
-                    : "bg-transparent border border-white/20 text-white hover:bg-white/10"
-                } group`}
+                className={`w-full ${plan.popular
+                  ? "bg-white text-black hover:bg-white/90"
+                  : "bg-transparent border border-white/20 text-white hover:bg-white/10"
+                  } group`}
                 size="lg"
+                asChild
               >
-                {plan.name === "Enterprise" ? "Contact Sales" : "Get Started"}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Link href={plan.name === "Enterprise" ? "#contact" : "/auth/signup"}>
+                  {plan.name === "Enterprise" ? "Contact Sales" : plan.name === "Free" ? "Get Started Free" : "Start Pro Trial"}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
             </motion.div>
           ))}
@@ -133,11 +146,11 @@ export function PricingSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-400 mb-4">All plans include 14-day free trial • No credit card required</p>
+          <p className="text-gray-400 mb-4">Pro plan includes 14-day free trial • Cancel anytime</p>
           <p className="text-sm text-gray-500">
-            Need a custom solution?{" "}
+            Student discount available!{" "}
             <a href="#" className="text-white hover:underline">
-              Contact our sales team
+              Verify with your .edu email
             </a>
           </p>
         </motion.div>

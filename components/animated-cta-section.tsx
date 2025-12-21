@@ -1,9 +1,16 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useRef } from "react"
 import { Button } from "./ui/button"
-import { ArrowRight } from "lucide-react"
-import { BackgroundPaths } from "./ui/floating-paths"
+import { ArrowRight, MessageCircle } from "lucide-react"
+import Link from "next/link"
+
+// Dynamic import with SSR disabled to prevent hydration mismatch
+const BackgroundPaths = dynamic(
+  () => import("./ui/floating-paths").then((mod) => mod.BackgroundPaths),
+  { ssr: false }
+)
 
 export function AnimatedCTASection() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -48,24 +55,27 @@ export function AnimatedCTASection() {
             className="text-4xl font-bold text-white mb-4 drop-shadow-lg animate-fade-in-up"
             style={{ fontFamily: "var(--font-playfair)", animationDelay: "0.5s" }}
           >
-            Ready to Transform Your Business?
+            Ready to Accelerate Your Career?
           </h2>
           <p
             className="text-xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow-md animate-fade-in-up"
             style={{ animationDelay: "0.7s" }}
           >
-            Join thousands of companies already using LeLo to streamline their operations and boost productivity.
+            Join thousands of candidates who've landed their dream jobs at top companies with AI-powered coaching.
           </p>
           <div
             className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
             style={{ animationDelay: "0.9s" }}
           >
-            <Button size="lg" className="bg-white text-black hover:bg-white/90 group">
-              Start Your Free Trial
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <Button size="lg" className="bg-white text-black hover:bg-white/90 group" asChild>
+              <Link href="/auth/signup" prefetch={false}>
+                Start Free Career Assessment
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
-              Contact Sales
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent group">
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Talk to Career Expert
             </Button>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import type React from "react"
 import { motion } from "framer-motion"
 import { AnimatedGradient } from "@/components/ui/animated-gradient-with-svg"
+import { FileText, Video, Target, Compass, TrendingUp, Briefcase } from "lucide-react"
 
 interface BentoCardProps {
   title: string
@@ -10,9 +11,10 @@ interface BentoCardProps {
   subtitle?: string
   colors: string[]
   delay: number
+  icon?: React.ReactNode
 }
 
-const BentoCard: React.FC<BentoCardProps> = ({ title, value, subtitle, colors, delay }) => {
+const BentoCard: React.FC<BentoCardProps> = ({ title, value, subtitle, colors, delay, icon }) => {
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -74,6 +76,11 @@ const BentoCard: React.FC<BentoCardProps> = ({ title, value, subtitle, colors, d
         initial="hidden"
         animate="show"
       >
+        {icon && (
+          <motion.div className="mb-4 text-white/80" variants={item}>
+            {icon}
+          </motion.div>
+        )}
         <motion.h3 className="text-sm sm:text-base md:text-lg text-foreground mb-2" variants={item}>
           {title}
         </motion.h3>
@@ -109,55 +116,68 @@ export function AnimatedFeaturesSection() {
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
-            Powerful Features
+            AI-Powered Career Tools
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Everything you need to take your business to the next level
+            Everything you need to land your dream job, powered by advanced AI
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[700px]">
           <div className="md:col-span-2">
             <BentoCard
-              title="Advanced Analytics"
-              value="Real-time Insights"
-              subtitle="Get deep insights into your business performance with comprehensive analytics and reporting"
-              colors={["#1a1a1a", "#2a2a2a", "#1f1f1f"]}
+              title="AI Resume Builder"
+              value="Professional Resumes"
+              subtitle="Create ATS-optimized resumes with AI suggestions, professional templates, and real-time feedback"
+              colors={["#1a1a2e", "#16213e", "#1f1f2e"]}
               delay={0.2}
+              icon={<FileText className="w-8 h-8" />}
             />
           </div>
           <BentoCard
-            title="Team Collaboration"
-            value="Seamless"
-            subtitle="Work together efficiently"
-            colors={["#151515", "#252525", "#1d1d1d"]}
+            title="Mock Interview Coach"
+            value="Practice & Excel"
+            subtitle="AI-powered video interviews with real-time feedback and personalized tips"
+            colors={["#151525", "#252535", "#1d1d2d"]}
             delay={0.4}
+            icon={<Video className="w-8 h-8" />}
           />
           <BentoCard
-            title="Lightning Performance"
-            value="99.9%"
-            subtitle="Uptime guaranteed"
-            colors={["#1c1c1c", "#2c2c2c", "#181818"]}
+            title="ATS Score Analyzer"
+            value="95%+ Match"
+            subtitle="Analyze and optimize your resume for any job description"
+            colors={["#1c1c2c", "#2c2c3c", "#181828"]}
             delay={0.6}
+            icon={<Target className="w-8 h-8" />}
           />
           <div className="md:col-span-2">
             <BentoCard
-              title="Enterprise Security"
-              value="Bank-level"
-              subtitle="End-to-end encryption with compliance certifications for maximum security"
-              colors={["#171717", "#272727", "#1b1b1b"]}
+              title="Career Path Advisor"
+              value="Personalized Paths"
+              subtitle="Get AI recommendations for your ideal career trajectory based on your skills and goals"
+              colors={["#171727", "#272737", "#1b1b2b"]}
               delay={0.8}
+              icon={<Compass className="w-8 h-8" />}
             />
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <BentoCard
-              title="Global Scale & Mobile Ready"
-              value="Worldwide"
-              subtitle="Deploy globally with our infrastructure and access your dashboard anywhere with responsive design"
-              colors={["#131313", "#232323", "#191919"]}
+              title="Skills Gap Analysis"
+              value="Learn & Grow"
+              subtitle="Identify skills to learn and get personalized learning recommendations"
+              colors={["#131323", "#232333", "#191929"]}
               delay={1}
+              icon={<TrendingUp className="w-8 h-8" />}
             />
           </div>
+          <BentoCard
+            title="Job Matching Engine"
+            value="Smart Match"
+            subtitle="Get matched with opportunities that fit your profile perfectly"
+            colors={["#141424", "#242434", "#1a1a2a"]}
+            delay={1.2}
+            icon={<Briefcase className="w-8 h-8" />}
+          />
         </div>
       </div>
     </section>
