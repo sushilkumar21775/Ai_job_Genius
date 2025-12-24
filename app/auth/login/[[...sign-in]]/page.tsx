@@ -33,6 +33,7 @@ export default function LoginPage() {
         setIsLoading(true)
 
         try {
+            // Try direct sign-in with email and password
             const result = await signIn.create({
                 identifier: email,
                 password: password,
@@ -41,10 +42,36 @@ export default function LoginPage() {
             if (result.status === "complete") {
                 await setActive({ session: result.createdSessionId })
                 router.push("/dashboard")
+            } else if (result.status === "needs_first_factor") {
+                // Need to attempt first factor with password
+                const firstFactorResult = await signIn.attemptFirstFactor({
+                    strategy: "password",
+                    password: password,
+                })
+
+                if (firstFactorResult.status === "complete") {
+                    await setActive({ session: firstFactorResult.createdSessionId })
+                    router.push("/dashboard")
+                }
+            } else if (result.status === "needs_second_factor") {
+                setError("Two-factor authentication required")
             }
         } catch (err: unknown) {
-            const error = err as { errors?: { message: string }[] }
-            setError(error.errors?.[0]?.message || "Invalid email or password")
+            const error = err as { errors?: { message: string; code?: string }[] }
+            const errorMessage = error.errors?.[0]?.message || "Invalid email or password"
+
+            // If session already exists, just redirect to dashboard
+            if (errorMessage.toLowerCase().includes("session") || errorMessage.toLowerCase().includes("already")) {
+                router.push("/dashboard")
+                return
+            }
+
+            // If the error indicates password is not enabled, show helpful message
+            if (errorMessage.toLowerCase().includes("password") || errorMessage.toLowerCase().includes("strategy")) {
+                setError("This account uses a different sign-in method. Try 'Continue with Google' or sign up with a new account.")
+            } else {
+                setError(errorMessage)
+            }
         } finally {
             setIsLoading(false)
         }
