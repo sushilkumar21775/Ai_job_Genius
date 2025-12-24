@@ -31,8 +31,16 @@ export function HeroSection() {
 
   return (
     <section className="py-20 px-4 relative overflow-hidden min-h-screen flex flex-col justify-between">
-      <div className="flex-1 flex items-start justify-center pt-20">
+      {/* Particle effect - hidden on mobile to prevent overlap */}
+      <div className="hidden md:flex flex-1 items-start justify-center pt-20">
         <ParticleTextEffect words={["CAREER", "SUCCESS", "AI COACH", "DREAM JOB"]} />
+      </div>
+
+      {/* Mobile spacer when particle effect is hidden */}
+      <div className="flex md:hidden flex-1 items-center justify-center pt-8">
+        <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight text-center">
+          CAREER<br /><span className="text-gray-400">SUCCESS</span>
+        </h1>
       </div>
 
       <div className="container mx-auto text-center relative z-10 pb-8">
